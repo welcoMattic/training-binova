@@ -4,7 +4,7 @@ namespace App\Message;
 
 use Symfony\Component\Messenger\Attribute\AsMessage;
 
-#[AsMessage(transport: 'async')]
+#[AsMessage(transport: 'normal_priority')]
 final class SendEmailMessage
 {
     public function __construct(
