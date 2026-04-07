@@ -27,6 +27,7 @@ class RegistrationController extends AbstractController
             // encode the plain password
             $user
                 ->setApiKey()
+                ->setVolunteerProfile($form->get('volunteerProfile')->getData())
                 ->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
