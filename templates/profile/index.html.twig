@@ -13,6 +13,18 @@
 
                 <h3 style="color: limegreen;">Preferences:</h3>
                 <twig:ProfileForm :profile="user.volunteerProfile"/>
+                <h3 style="color: limegreen;">Matchings:</h3>
+                <ul>
+                    {% for matching in matchings %}
+                        <li>
+                            <a href="{{ path('app_conference_show', {id: matching.conference.id}) }}">
+                                {{ matching.conference.name }}
+                            </a>
+                        </li>
+                    {% else %}
+                        <li>No matchings yet...</li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
     </div>

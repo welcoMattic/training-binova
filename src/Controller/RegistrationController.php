@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Message\MatchVolunteerMessage;
 use App\Message\SendEmailMessage;
+use App\Stamp\PriorityStamp;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -38,7 +40,8 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $bus->dispatch(new SendEmailMessage($user->getId()));
+            $bus->dispatch(new SendEmailMessage($user->getId()), [new PriorityStamp(10)]);
+            $bus->dispatch(new MatchVolunteerMessage($user->getId()), [new PriorityStamp(5)]);
 
             return $security->login($user, 'form_login', 'main');
         }
